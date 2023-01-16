@@ -1,0 +1,31 @@
+[
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "title": "Product1",
+      "description": "Interesting product",
+      "image": "",
+      "price": "1500.00",
+      "category": 1,
+      "created_at": "2023-01-16T23:36:31.715Z",
+      "updated_at": "2023-01-16T23:36:31.715Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "title": "Some category",
+      "description": "This is some category"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "title": "Another category",
+      "description": "This is another category"
+    }
+  }
+]

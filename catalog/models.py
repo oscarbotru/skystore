@@ -9,7 +9,7 @@ class Product(models.Model):
     description = models.TextField(verbose_name='описание')
     image = models.ImageField(upload_to='products/', **NULLABLE)
 
-    price = models.DecimalField(max_digits=12, decimal_places=10, verbose_name='цена', default=0)
+    price = models.DecimalField(max_digits=12, decimal_places=2, verbose_name='цена', default=0)
 
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='категория')
 
