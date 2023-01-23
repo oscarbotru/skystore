@@ -11,14 +11,6 @@ def home(request):
     return render(request, 'catalog/home.html', context)
 
 
-def product_card(request, pk):
-    product_item = get_object_or_404(Product, pk=pk)
-    context = {
-        'object': product_item
-    }
-    return render(request, 'catalog/card.html', context)
-
-
 def contacts(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -27,3 +19,10 @@ def contacts(request):
         with open('contact_form.txt', 'w+') as form_file:
             form_file.write(f'{name};{phone};{message}')
     return render(request, 'catalog/contacts.html')
+
+
+def product(request, pk):
+    context = {
+        'object': Product.objects.get(pk=pk)
+    }
+    return render(request, 'catalog/product.html', context)
