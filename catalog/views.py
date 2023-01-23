@@ -4,9 +4,10 @@ from catalog.models import Product
 
 
 def home(request):
-    last_five_products = Product.objects.all()[:5]
-    print(last_five_products)
-    return render(request, 'catalog/home.html')
+    context = {
+        'object_list': Product.objects.all()
+    }
+    return render(request, 'catalog/home.html', context)
 
 
 def contacts(request):
@@ -17,3 +18,10 @@ def contacts(request):
         with open('contact_form.txt', 'w+') as form_file:
             form_file.write(f'{name};{phone};{message}')
     return render(request, 'catalog/contacts.html')
+
+
+def product(request, pk):
+    context = {
+        'object': Product.objects.get(pk=pk)
+    }
+    return render(request, 'catalog/product.html', context)
