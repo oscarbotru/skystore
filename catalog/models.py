@@ -35,3 +35,15 @@ class Category(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+
+class Version(models.Model):
+    product = models.ForeignKey(Product, verbose_name='продукт', on_delete=models.CASCADE)
+    version = models.DecimalField(decimal_places=2, max_digits=4, verbose_name='версия')
+    title = models.CharField(max_length=25, verbose_name='название')
+
+    release_date = models.DateTimeField(blank=True, null=True, verbose_name='дата релиза')
+
+    class Meta:
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'

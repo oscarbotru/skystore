@@ -1,0 +1,100 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+    <style>
+        .formset .formset-col {
+            display: inline-block;
+            width: 30%;
+            margin: 0 auto;
+            padding-right: 10px;
+        }
+
+        .formset .formset_row {
+            margin: 10px auto;
+        }
+
+        .formset .formset-col:nth-of-type(4n) {
+            width: 3%;
+        }
+
+        .formset {
+            margin: 20px auto;
+        }
+    </style>
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        {% if object %}
+                            Редактирование
+                        {% else %}
+                            Создание
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">
+                            {% if object %}
+                                Сохранить
+                            {% else %}
+                                Создать
+                            {% endif %}
+                        </button>
+                        <a href="{% url 'catalog:home' %}" class="btn btn-warning">Отмена</a>
+
+                    </div>
+                </div>
+            </div>
+            {% if object %}
+                <div class="col-8">
+                    <div class="card">
+                        <div class="card-header">
+                            Версии продукта
+                        </div>
+                        <div class="card-body">
+                            <div class="formset">
+                                {{ formset.management_form }}
+                                {% for form in formset.forms %}
+                                    <div class="formset_row">
+                                        {% for field in form.visible_fields %}
+                                            <div class="formset-col">
+                                                {% if forloop.first %}
+                                                    {% for hidden in form.hidden_fields %}
+                                                        {{ hidden }}
+                                                    {% endfor %}
+                                                {% endif %}
+                                                {{ field.errors.as_ul }}
+                                                {% if not forloop.last %}
+                                                    {{ field.label }}
+                                                {% endif %}
+                                                {{ field }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </form>
+    <script
+            src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"
+            integrity="sha512-ltwjKsDTo3hW/wV66ZaEkf2wOAFxmg7rWM76J8kOcYKLSKy44WBYO/BFaNNH3NGDS8BSz3meB9wtSnm41oL+pA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('.formset_row').formset({
+            addText: '<span class="btn btn-outline-primary"><i class="fa fa-plus-circle"></i> Добавить тег</span>',
+            deleteText: '<span class="btn btn-outline-danger">X</span>',
+            prefix: 'tag_set',
+            {#removed: deleteOrderItem#}
+        });
+    </script>
+{% endblock %}
