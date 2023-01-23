@@ -1,0 +1,11 @@
+{% extends 'authapp/base.html' %}
+{% block content %}
+    <h2 class="authorization__title text_form_title">Регистрация</h2>
+        <br><br>
+        <p style="text-align: center">
+        Во время регистрации возникла ошибка. Попробуйте повторить позже или обратитесь в поддержку: <a class="enter_link" href="mailto:support@oscar-teach.ru">support@oscar-teach.ru</a>
+        </p>
+    <div class="recovery__management text_form">
+        <a class="recovery__link enter_link" href="{% url 'login' %}">Войти</a>
+    </div>
+{% endblock %}

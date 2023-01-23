@@ -1,0 +1,30 @@
+{% extends 'authapp/base.html' %}
+{% block content %}
+    <h2 class="authorization__title text_form_title">Восстановление пароля</h2>
+
+    <form action="#" class="recovery__form" id="authorization_form">
+
+        <label class="recovery__label text_form" for="recovery__email">
+            Введите email, который был использован
+            при регистрации
+        </label>
+
+        <input id="recovery__email" class="recovery__input text_form input_enter_form" type="text"
+               placeholder="email@email.ru">
+
+        <button
+                class="recovery__btn text_btn_form btn_transition g-recaptcha"
+                data-sitekey="{{ site_key }}"
+                data-callback='onSubmit'
+                data-action='submit'
+                type="submit"
+        >Восстановить
+        </button>
+
+    </form>
+
+    <div class="recovery__management text_form">
+        <a class="recovery__link enter_link" href="{% url 'login' %}">Войти</a>
+        <a class="enter_link" href="{% url 'register' %}">Зарегистрироваться</a>
+    </div>
+{% endblock %}

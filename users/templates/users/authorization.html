@@ -1,0 +1,38 @@
+{% extends 'users/base.html' %}
+{% block css_extends %}
+    <style>
+        .authorization_form__wrapper ul {
+            padding: 0;
+            margin: 0;
+            margin-bottom: 1rem;
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h2 class="authorization__title text_form_title">Вход</h2>
+    <form class="authorization_form" id="authorization_form" method="post">
+        {% csrf_token %}
+        <div class="authorization_form__wrapper">
+            {{ form.as_p }}
+            <button
+                    class="text_btn_form authorization_form__btn btn_transition g-recaptcha"
+                    data-sitekey="{{ site_key }}"
+                    data-callback='onSubmit'
+                    data-action='submit'
+                    type="submit"
+            >
+                Войти
+            </button>
+        </div>
+    </form>
+    <div class="authorization__management text_form">
+        <a class="authorization__link enter_link" href="{% url 'users:register' %}"
+        >Зарегистрироваться</a
+        >
+        <a class="authorization__link enter_link" href="{% url 'users:reset' %}"
+        >Восстановить пароль</a
+        >
+    </div>
+{% endblock %}

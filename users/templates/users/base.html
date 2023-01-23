@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>QR Hunting - Вход</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.png' %}">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colors.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .logo_authorization {
+            padding: 0;
+        }
+        .logo_authorization__title {
+            margin: 0 auto;
+        }
+    </style>
+    {% block css_extends %}
+    {% endblock %}
+    {% include 'includes/metrics.html' %}
+</head>
+<body class="enter_body">
+<div class="authorization">
+    <div class="authorization__container">
+        <a href="{% url 'users:dashboard' %}">
+            <div class="logo_authorization">
+                <h1 class="logo_authorization__title">
+                    <span class="logo_authorization__first"> QR </span>
+                    <span class="logo_authorization__second"> Hunting </span>
+                </h1>
+            </div>
+        </a>
+        {% block content %}
+        <h2 class="authorization__title text_form_title">Вход</h2>
+        <form class="authorization_form" id="authorization_form" method="post">
+            {% csrf_token %}
+            <div class="authorization_form__wrapper">
+                <div class="authorization_form__block">
+                    <label
+                            class="authorization_form__label text_form"
+                            for="authorization_login"
+                    >Логин</label
+                    >
+                    <input
+                            class="authorization_form__input text_form input_enter_form"
+                            type="text"
+                            id="authorization_login"
+                            name="email"
+                    />
+                </div>
+                <div class="authorization_form__block">
+                    <label
+                            class="authorization_form__label text_form"
+                            for="authorization_password"
+                    >Пароль</label
+                    >
+                    <input
+                            class="authorization_form__input text_form input_enter_form"
+                            type="password"
+                            id="authorization_password"
+                            name="password"
+                    />
+                </div>
+                <button
+                        class="text_btn_form authorization_form__btn btn_transition g-recaptcha"
+                        data-sitekey="6LePmhYdAAAAADTulMbxD0oP7NnOa9hbkNkXSUqm"
+                        data-callback='onSubmit'
+                        data-action='submit'
+                        type="submit"
+                >
+                    Войти
+                </button>
+            </div>
+        </form>
+        <div class="authorization__management text_form">
+            <a class="authorization__link enter_link" href="{% url 'register' %}"
+            >Зарегистрироваться</a
+            >
+            <a class="authorization__link enter_link" href="{% url 'reset' %}"
+            >Восстановить пароль</a
+            >
+        </div>
+        {% endblock %}
+    </div>
+</div>
+<script src="{% static 'assets/js/auth_reg_recovery.js' %}"></script>
+{% block js %}
+<script>
+    function onSubmit(token) {
+        document.getElementById("authorization_form").submit();
+    }
+</script>
+{% endblock %}
+</body>
+</html>

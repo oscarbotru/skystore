@@ -1,0 +1,13 @@
+{% extends 'authapp/base.html' %}
+{% block content %}
+    <h2 class="authorization__title text_form_title">Регистрация</h2>
+        <br><br>
+        <p style="text-align: center">
+        Регистрация прошла успешно, проверьте свою почту и перейдите по ссылку для подтверждения своего аккаунта
+        </p>
+
+
+    <div class="recovery__management text_form">
+        <a class="recovery__link enter_link" href="{% url 'login' %}">Войти</a>
+    </div>
+{% endblock %}

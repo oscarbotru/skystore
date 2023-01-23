@@ -1,0 +1,36 @@
+{% extends 'users/base.html' %}
+{% block css_extends %}
+    <style>
+        .errorlist {
+            color: #FF8787 !important;
+            font-size: 12px;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h2 class="authorization__title text_form_title">Регистрация</h2>
+    <form method="post" class="authorization_form ">
+        {% csrf_token %}
+        <div class="authorization_form__wrapper">
+            {{ form.as_p }}
+            <button
+                    class="authorization_form__btn text_btn_form btn_transition registration_btn g-recaptcha"
+{#                    data-sitekey="{{ site_key }}"#}
+{#                    data-callback='onSubmit'#}
+{#                    data-action='submit'#}
+                    type="submit"
+            >Зарегистрироваться
+            </button>
+        </div>
+
+    </form>
+    <div class="authorization__management text_form registration__manager">
+        <a class="authorization__link registration__link enter_link" href="{% url 'users:reset' %}">Уже
+            зарегистрированы?</a>
+        <a class="authorization__link enter_link" href="{% url 'users:login' %}">Войти</a>
+    </div>
+{% endblock %}
