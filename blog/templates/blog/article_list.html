@@ -1,0 +1,26 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+    <h2>Блог</h2>
+    <div class="row">
+        {% for item in object_list %}
+            <div class="col-3">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">{{ item.title }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="list-unstyled mt-3 mb-4 text-start m-3">
+                            {{ item.description|truncatechars:100 }}
+                        </p>
+                        <a href="{% url 'blog:detail' item.slug %}" type="button"
+                           class="btn btn-lg btn-block btn-outline-primary">Посмотреть</a>
+                    </div>
+                    <div class="card-footer">
+                        {{ item.views }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

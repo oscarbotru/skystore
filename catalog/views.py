@@ -1,28 +1,27 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from django.views.generic import ListView, TemplateView, DetailView
 
 from catalog.models import Product
 
 
-def home(request):
-    product_list = Product.objects.all()[:5]
-    context = {
-        'object_list': product_list
-    }
-    return render(request, 'catalog/home.html', context)
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/home.html'
 
 
-def contacts(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        message = request.POST.get('message')
+class ContactsView(TemplateView):
+    template_name = 'catalog/contacts.html'
+
+    def post(self, *args, **kwargs):
+        name = self.request.POST.get('name')
+        phone = self.request.POST.get('phone')
+        message = self.request.POST.get('message')
         with open('contact_form.txt', 'w+') as form_file:
             form_file.write(f'{name};{phone};{message}')
-    return render(request, 'catalog/contacts.html')
+        return redirect(reverse('catalog:contacts'))
 
 
-def product(request, pk):
-    context = {
-        'object': Product.objects.get(pk=pk)
-    }
-    return render(request, 'catalog/product.html', context)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product.html'
