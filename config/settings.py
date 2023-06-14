@@ -130,3 +130,12 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.User'
+
+EMAIL_HOST = 'smtp.yandex.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'user@yandex.ru'
+EMAIL_HOST_PASSWORD = 'secret'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
