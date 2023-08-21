@@ -44,23 +44,20 @@ class ProductUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
 
-        VersionFormSet = inlineformset_factory(self.model, Version, form=VersionForm, extra=1)
-
         if self.request.method == 'POST':
-            formset = VersionFormSet(self.request.POST, instance=self.object)
+            formset = VersionForm(self.request.POST)
         else:
-            formset = VersionFormSet(instance=self.object)
+            formset = VersionForm()
 
-        context_data['formset'] = formset
+        context_data['version_form'] = formset
         return context_data
 
     def form_valid(self, form):
         context_data = self.get_context_data()
-        formset = context_data['formset']
-        with transaction.atomic():
-            self.object = form.save()
-            if formset.is_valid():
-                formset.instance = self.object
-                formset.save()
+        version_form = context_data['version_form']
+        self.object = form.save()
+        if version_form.is_valid():
+            version_form.product = self.object
+            version_form.save()
 
         return super().form_valid(form)
